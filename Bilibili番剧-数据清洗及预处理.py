@@ -117,6 +117,9 @@ test.info()
 test.to_excel("番剧数据-清洗后数据【2015-2023】.xlsx")
 
 
+
+
+# =================================不用哪个删哪个1
 # 分类,1恋爱，2冒险，3搞笑，4治愈，5热血
 data = pd.DataFrame(columns=test.columns)
 for x in range(0,test.shape[0]):
@@ -137,9 +140,28 @@ for x in range(0,test.shape[0]):
       data.loc[len(data)-1,'所属类别'] = 5
 data=data.groupby(by = ['年份','所属类别']).mean().unstack()
 print(data)
+
 # 归一化
 transformer = MinMaxScaler(feature_range=(0,100))
 newtest = transformer.fit_transform(data)
 set_printoptions(precision=3)   #小数点后3位
 # 输出归一化后列表
+newtest=pd.DataFrame(newtest,index=data.index,columns=data.columns)
 print(newtest)
+newtest.to_excel("番剧数据-归一化后数据【2015-2023】.xlsx")
+
+
+
+
+
+#====================================== 不用哪个删哪个2
+test.drop(["所属类别"],axis=1,inplace=True)
+# 归一化
+transformer = MinMaxScaler(feature_range=(0,100))
+newtest1 = transformer.fit_transform(test)
+set_printoptions(precision=3)   #小数点后3位
+# 输出归一化后列表
+newtest1=pd.DataFrame(newtest1,index=test.index,columns=test.columns)
+print(newtest1)
+
+newtest1.to_excel("番剧数据-归一化后数据【2015-2023】（未分类）.xlsx")
