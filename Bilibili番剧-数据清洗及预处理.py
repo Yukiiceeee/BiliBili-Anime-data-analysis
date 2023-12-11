@@ -125,21 +125,22 @@ data = pd.DataFrame(columns=test.columns)
 for x in range(0,test.shape[0]):
   if("恋爱" in  test['所属类别'].iloc[x]):
       data.loc[len(data)] = test.iloc[x]
-      data.loc[len(data)-1,'所属类别'] = 1
+      data.loc[len(data)-1,'所属类别'] = "恋爱"
   elif("冒险" in  test['所属类别'].iloc[x]):
       data.loc[len(data)] = test.iloc[x]
-      data.loc[len(data)-1,'所属类别'] = 2
+      data.loc[len(data)-1,'所属类别'] = "冒险"
   elif("搞笑" in  test['所属类别'].iloc[x]):
       data.loc[len(data)] = test.iloc[x]
-      data.loc[len(data)-1,'所属类别'] = 3
+      data.loc[len(data)-1,'所属类别'] = "搞笑"
   elif("治愈" in  test['所属类别'].iloc[x]):
       data.loc[len(data)] = test.iloc[x]
-      data.loc[len(data)-1,'所属类别'] = 4
+      data.loc[len(data)-1,'所属类别'] = "治愈"
   elif ("热血" in test['所属类别'].iloc[x]):
       data.loc[len(data)] = test.iloc[x]
-      data.loc[len(data)-1,'所属类别'] = 5
-data=data.groupby(by = ['年份','所属类别']).mean().unstack()
-# print(data)
+      data.loc[len(data)-1,'所属类别'] = "热血"
+data=data.groupby(by = ['年份',"所属类别"]).mean()
+print(data)
+
 
 # 归一化
 transformer = MinMaxScaler(feature_range=(0,100))
@@ -147,22 +148,22 @@ newtest = transformer.fit_transform(data)
 set_printoptions(precision=3)   #小数点后3位
 # 输出归一化后列表
 newtest=pd.DataFrame(newtest,index=data.index,columns=data.columns)
-# print(newtest)
+print(newtest)
 newtest.to_excel("番剧数据-归一化后数据【2015-2023】(无受欢迎程度，有分类).xlsx")
 
 
 
 
 
-#======================================归一化
-test.drop(["所属类别"],axis=1,inplace=True)
-test=test.groupby(by = '年份').mean()
-# 归一化
-transformer = MinMaxScaler(feature_range=(0,100))
-newtest1 = transformer.fit_transform(test)
-set_printoptions(precision=3)   #小数点后3位
-# 输出归一化后列表
-newtest1=pd.DataFrame(newtest1,index=test.index,columns=test.columns)
-newtest1["受欢迎程度"]=newtest1["播放量"]*100+newtest1["评分"]*90+newtest1["点赞量"]*85+newtest1["投币量"]*85+newtest1["转发量"]*55+newtest1["弹幕数"]*35+newtest1["系列追番数"]*88
-print(newtest1)
-newtest1.to_excel("番剧数据-归一化后数据【2015-2023】（未分类）.xlsx")
+# #======================================归一化
+# test.drop(["所属类别"],axis=1,inplace=True)
+# test=test.groupby(by = '年份').mean()
+# # 归一化
+# transformer = MinMaxScaler(feature_range=(0,100))
+# newtest1 = transformer.fit_transform(test)
+# set_printoptions(precision=3)   #小数点后3位
+# # 输出归一化后列表
+# newtest1=pd.DataFrame(newtest1,index=test.index,columns=test.columns)
+# newtest1["受欢迎程度"]=newtest1["播放量"]*100+newtest1["评分"]*90+newtest1["点赞量"]*85+newtest1["投币量"]*85+newtest1["转发量"]*55+newtest1["弹幕数"]*35+newtest1["系列追番数"]*88
+# print(newtest1)
+# newtest1.to_excel("番剧数据-归一化后数据【2015-2023】（未分类）.xlsx")
