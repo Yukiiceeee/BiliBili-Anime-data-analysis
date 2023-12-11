@@ -73,7 +73,7 @@ def clean(test):
 
     # 可视化看数据分布，这里是pandas模块里的画图
     test.plot(kind='box',subplots=True,layout=(3,3),sharex=False,figsize = (10,10))
-    plt.savefig("【箱线图】2015-2023年播放量情况")
+    plt.savefig("【箱线图】2015-2023年播放量情况-不同地区")
     plt.show()
 
 
@@ -121,19 +121,19 @@ test.to_excel("番剧数据-清洗后数据【2015-2023】.xlsx")
 test1.to_excel("番剧数据-清洗后数据【2015-2023-不同地区】.xlsx")
 
 
-# ====================对表格  番剧数据-清洗后数据【2015-2023-不同地区】的处理
-test1.drop(["所属类别"],axis=1,inplace=True)
-test1=test1.groupby(by = ['年份',"地区"]).mean()
-# 归一化
-transformer = MinMaxScaler(feature_range=(0,100))
-newtest1 = transformer.fit_transform(test1)
-set_printoptions(precision=3)   #小数点后3位
-# 输出归一化后列表
-newtest1=pd.DataFrame(newtest1,index=test1.index,columns=test1.columns)
-newtest1["受欢迎程度"]=newtest1["播放量"]*100+newtest1["评分"]*90+newtest1["点赞量"]*85+newtest1["投币量"]*85+newtest1["转发量"]*55+newtest1["弹幕数"]*35+newtest1["系列追番数"]*88
-newtest1.to_excel("番剧数据-归一化后数据【2015-2023-不同地区】.xlsx")
-print("----------------")
-print(newtest1)
+# # ====================对表格  番剧数据-清洗后数据【2015-2023-不同地区】的处理
+# test1.drop(["所属类别"],axis=1,inplace=True)
+# test1=test1.groupby(by = ['年份',"地区"]).mean()
+# # 归一化
+# transformer = MinMaxScaler(feature_range=(0,100))
+# newtest1 = transformer.fit_transform(test1)
+# set_printoptions(precision=3)   #小数点后3位
+# # 输出归一化后列表
+# newtest1=pd.DataFrame(newtest1,index=test1.index,columns=test1.columns)
+# newtest1["受欢迎程度"]=newtest1["播放量"]*100+newtest1["评分"]*90+newtest1["点赞量"]*85+newtest1["投币量"]*85+newtest1["转发量"]*55+newtest1["弹幕数"]*35+newtest1["系列追番数"]*88
+# newtest1.to_excel("番剧数据-归一化后数据【2015-2023-不同地区】.xlsx")
+# print("----------------")
+# print(newtest1)
 
 
 # ================================对表格 番剧数据-清洗后数据【2015-2023】 的处理
