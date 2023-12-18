@@ -80,7 +80,6 @@ def clean(test):
     # 异常值处理
     #  异常值检验函数 =========================
     def outlier_test(data, column):
-
            print(f'以 {column} 列为依据，使用 上下截断点法(iqr) 检测异常值...')
            print('=' * 70)
            # 四分位点；这里调用函数会存在异常
