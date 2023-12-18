@@ -73,7 +73,7 @@ def clean(test):
 
     # 可视化看数据分布，这里是pandas模块里的画图
     test.plot(kind='box',subplots=True,layout=(3,3),sharex=False,figsize = (10,10))
-    plt.savefig("【箱线图】2015-2023年播放量情况")
+    plt.savefig("【箱线图】2015-2023年播放量情况-不同地区")
     plt.show()
 
 
